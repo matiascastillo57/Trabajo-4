@@ -1,7 +1,36 @@
+# Python
 venv/
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Django
 *.log
+*.pot
+*.sqlite3
+db.sqlite3
+/staticfiles/
+/media/
+
+# Environment
 .env
-staticfiles/
+.env.local
 *.pem
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+gunicorn-access.log
+gunicorn-error.log

@@ -8,7 +8,7 @@ SECRET_KEY = 'django-insecure-change-this-in-production-x9k2m4n8p1q5r7s3t6v2w8y4
 DEBUG = True
 
 # IMPORTANTE: Reemplaza con tu IP pública de EC2
-ALLOWED_HOSTS = ['52.87.174.225', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['54.165.225.184', 'localhost', '127.0.0.1']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
