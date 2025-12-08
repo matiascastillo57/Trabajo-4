@@ -13,16 +13,21 @@ from .serializers import (
 def info_estudiante(request):
     """
     Endpoint público con información del estudiante.
-    ⚠️ EDITA TUS DATOS AQUÍ
     """
+    # Obtener IP real desde el request
+    host = request.get_host()
+    # Quitar el puerto si existe
+    if ':' in host:
+        host = host.split(':')[0]
+    
     data = {
         "estudiante": {
-            "nombre": "Jorge Matías Castillo",  # ⚠️ CAMBIAR
-            "rut": "12.345.678-9",              # ⚠️ CAMBIAR
+            "nombre": "Jorge Matías Castillo",
+            "rut": "TU-RUT-AQUI",
             "carrera": "Ingeniería en Informática",
-            "universidad": "Universidad de Chile",  # ⚠️ CAMBIAR
+            "universidad": "Universidad de Chile",
             "curso": "Desarrollo de Aplicaciones Web",
-            "profesor": "Nombre del Profesor"   # ⚠️ CAMBIAR
+            "profesor": "Nombre del Profesor"
         },
         "proyecto": {
             "nombre": "SmartConnect API",
@@ -31,9 +36,10 @@ def info_estudiante(request):
             "tecnologias": ["Django", "Django REST Framework", "MariaDB", "JWT", "Apache", "Gunicorn"]
         },
         "servidor": {
-            "ip": request.get_host(),
+            "ip": host,  # Mostrará la IP sin puerto
             "puerto": 80,
-            "sistema_operativo": "Amazon Linux 2023"
+            "sistema_operativo": "Amazon Linux 2023",
+            "url_base": f"http://{host}/api/"
         }
     }
     return Response(data)
