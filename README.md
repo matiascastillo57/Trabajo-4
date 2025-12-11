@@ -2,255 +2,215 @@
 
 Sistema de gestión de sensores y barreras IoT desarrollado con Django REST Framework.
 
-## 👨‍💻 Información del Proyecto
+## 👨‍🎓 Información del Proyecto
 
-**Autor:** Jorge Matías Castillo  
-**RUT:** [Tu RUT]  
-**Universidad:** Universidad de Chile  
-**Curso:** Desarrollo de Aplicaciones Web  
-**Fecha:** Diciembre 2024
+- **Estudiante:** Jorge Matías Castillo
+- **Universidad:** INACAP
+- **Carrera:** Ingeniería en Informática
+- **Curso:** Desarrollo de Aplicaciones Web
 
-## 🛠️ Stack Tecnológico
+## 🔧 Stack Tecnológico
 
 - **Backend:** Django 5.0 + Django REST Framework 3.14
 - **Base de Datos:** MariaDB 10.5
-- **Autenticación:** JWT (Simple JWT)
+- **Autenticación:** JWT (djangorestframework-simplejwt)
 - **Servidor Web:** Apache 2.4 (Reverse Proxy)
-- **WSGI:** Gunicorn 21.2
+- **WSGI Server:** Gunicorn
 - **Sistema Operativo:** Amazon Linux 2023
-- **Cloud:** AWS EC2 con IP Elástica
-
-## 🌐 Servidor en Producción
-
-**URL Base:** http://54.165.225.184/api/
-
-**Panel de Administración:** http://54.165.225.184/admin/  
-- Usuario: `admin`
-- Contraseña: `Admin2024!`
+- **Cloud:** AWS EC2
 
 ## 📡 Endpoints Disponibles
 
-### Públicos (Sin autenticación)
-- `GET /api/info/` - Información del estudiante y proyecto
+### Públicos (sin autenticación)
+- `GET /` - Página de inicio HTML
+- `GET /api/` - API Root (información de endpoints)
+- `GET /api/info/` - Información del proyecto y estudiante
 
 ### Autenticación
-- `POST /api/token/` - Obtener token de acceso
+- `POST /api/token/` - Obtener access y refresh tokens
 - `POST /api/token/refresh/` - Refrescar token
 - `POST /api/token/verify/` - Verificar validez del token
 
-### Recursos (Requieren autenticación JWT)
-- `GET|POST /api/departamentos/` - Listar/Crear departamentos
-- `GET|PUT|PATCH|DELETE /api/departamentos/{id}/` - Operaciones CRUD
-- `GET /api/departamentos/{id}/sensores/` - Sensores de un departamento
-
-- `GET|POST /api/sensores/` - Listar/Crear sensores
-- `GET|PUT|PATCH|DELETE /api/sensores/{id}/` - Operaciones CRUD
+### Recursos (requieren autenticación)
+- `GET/POST /api/departamentos/` - CRUD de departamentos
+- `GET /api/departamentos/{id}/sensores/` - Sensores por departamento
+- `GET/POST /api/sensores/` - CRUD de sensores
 - `POST /api/sensores/{id}/cambiar_estado/` - Cambiar estado del sensor
-
-- `GET|POST /api/usuarios/` - Listar/Crear usuarios
-- `GET|PUT|PATCH|DELETE /api/usuarios/{id}/` - Operaciones CRUD
-
-- `GET|POST /api/barreras/` - Listar/Crear barreras
+- `GET/POST /api/barreras/` - CRUD de barreras
 - `POST /api/barreras/{id}/abrir/` - Abrir barrera
 - `POST /api/barreras/{id}/cerrar/` - Cerrar barrera
+- `GET/POST /api/eventos/` - CRUD de eventos (con filtros)
+- `GET/POST /api/usuarios/` - CRUD de usuarios
 
-- `GET|POST /api/eventos/` - Listar/Crear eventos
-- `GET /api/eventos/{id}/` - Detalle de evento
+### Administración
+- `/admin/` - Panel de administración de Django
 
-## 🗄️ Modelos de Datos
+## 🔐 Credenciales de Prueba
 
-### Departamento
-- `nombre` (CharField, unique)
-- `descripcion` (TextField)
-- `activo` (BooleanField)
-- Timestamps automáticos
+**Admin:**
+- Username: `admin`
+- Password: `Admin2024!`
 
-### Sensor
-- `mac_address` (CharField, unique, formato: AA:BB:CC:DD:EE:FF)
-- `nombre` (CharField)
-- `estado` (CharField: activo/inactivo/mantenimiento)
-- `departamento` (ForeignKey)
-- `ultima_lectura` (DateTimeField, nullable)
-- Timestamps automáticos
+## 🗃️ Modelos de Datos
 
-### Usuario
-- `user` (OneToOne con User de Django)
-- `rol` (CharField: admin/operador)
-- `departamento` (ForeignKey, nullable)
-- `telefono` (CharField)
-- `activo` (BooleanField)
+### 1. Departamento
+- nombre (único)
+- descripcion
+- activo
+- timestamps
 
-### Barrera
-- `nombre` (CharField)
-- `ubicacion` (CharField)
-- `estado` (CharField: abierta/cerrada/bloqueada)
-- `sensor` (ForeignKey, nullable)
-- `departamento` (ForeignKey, nullable)
-- Timestamps automáticos
+### 2. Sensor
+- mac_address (único, formato: AA:BB:CC:DD:EE:FF)
+- nombre
+- estado (activo/inactivo/mantenimiento)
+- departamento (FK)
+- ultima_lectura
+- timestamps
 
-### Evento
-- `tipo` (CharField: apertura/cierre/alerta/acceso_denegado)
-- `descripcion` (TextField)
-- `sensor` (ForeignKey)
-- `barrera` (ForeignKey, nullable)
-- `usuario` (ForeignKey, nullable)
-- `timestamp` (DateTimeField)
-- `metadata` (JSONField)
+### 3. Usuario
+- user (OneToOne con User de Django)
+- rol (admin/operador)
+- departamento (FK, nullable)
+- telefono
+- activo
+- timestamp
 
-## 🧪 Ejemplos de Uso
+### 4. Barrera
+- nombre
+- ubicacion
+- estado (abierta/cerrada/bloqueada)
+- sensor (FK, nullable)
+- departamento (FK, nullable)
+- timestamps
 
-### Obtener información del proyecto (sin auth)
+### 5. Evento
+- tipo (apertura/cierre/alerta/acceso_denegado)
+- descripcion
+- sensor (FK)
+- barrera (FK, nullable)
+- usuario (FK, nullable)
+- timestamp
+- metadata (JSON)
+
+## 🚀 Instalación y Despliegue
+
+### Requisitos Previos
+- Python 3.11+
+- MariaDB 10.5+
+- Apache 2.4+
+- Git
+
+### 1. Clonar el Repositorio
 ```bash
-curl http://54.165.225.184/api/info/
+git clone https://github.com/matiascastillo57/Trabajo-4.git
+cd Trabajo-4
 ```
 
-### Obtener token JWT
+### 2. Crear Entorno Virtual
+```bash
+python3.11 -m venv venv
+source venv/bin/activate  # Linux/Mac
+# venv\Scripts\activate  # Windows
+```
+
+### 3. Instalar Dependencias
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Configurar Base de Datos
+```sql
+CREATE DATABASE smartconnect;
+CREATE USER 'smartuser'@'localhost' IDENTIFIED BY 'SmartPass2024!';
+GRANT ALL PRIVILEGES ON smartconnect.* TO 'smartuser'@'localhost';
+FLUSH PRIVILEGES;
+```
+
+### 5. Aplicar Migraciones
+```bash
+python manage.py migrate
+python manage.py createsuperuser
+```
+
+### 6. Recopilar Archivos Estáticos
+```bash
+python manage.py collectstatic
+```
+
+### 7. Ejecutar Servidor de Desarrollo
+```bash
+python manage.py runserver
+```
+
+## 🔧 Configuración de Producción
+
+### Apache como Reverse Proxy
+Ver archivo: `/etc/httpd/conf.d/smartconnect.conf`
+
+### Gunicorn
+```bash
+gunicorn config.wsgi:application \
+  --bind 127.0.0.1:8000 \
+  --workers 3 \
+  --timeout 120 \
+  --daemon
+```
+
+## 📝 Ejemplo de Uso
+
+### Obtener Token
 ```bash
 curl -X POST http://54.165.225.184/api/token/ \
   -H "Content-Type: application/json" \
   -d '{"username":"admin","password":"Admin2024!"}'
 ```
 
-### Listar sensores (con auth)
+### Listar Departamentos
 ```bash
-TOKEN="tu_token_aqui"
-
-curl -X GET http://54.165.225.184/api/sensores/ \
-  -H "Authorization: Bearer $TOKEN"
+curl http://54.165.225.184/api/departamentos/ \
+  -H "Authorization: Bearer YOUR_TOKEN"
 ```
 
-### Crear departamento
-```bash
-curl -X POST http://54.165.225.184/api/departamentos/ \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "nombre": "Producción",
-    "descripcion": "Área de producción industrial",
-    "activo": true
-  }'
-```
-
-### Crear sensor
+### Crear Sensor
 ```bash
 curl -X POST http://54.165.225.184/api/sensores/ \
-  -H "Authorization: Bearer $TOKEN" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
-    "mac_address": "AA:BB:CC:DD:EE:01",
-    "nombre": "Sensor Entrada Principal",
+    "mac_address": "AA:BB:CC:DD:EE:FF",
+    "nombre": "Sensor Puerta Principal",
     "estado": "activo",
     "departamento": 1
   }'
 ```
 
-## 🔧 Instalación Local
-```bash
-# Clonar repositorio
-git clone https://github.com/matiascastillo57/Trabajo-4.git
-cd Trabajo-4/smartconnect
+## 🌐 URLs de Producción
 
-# Crear entorno virtual
-python3 -m venv venv
-source venv/bin/activate  # En Windows: venv\Scripts\activate
+- **Web:** http://54.165.225.184/
+- **API:** http://54.165.225.184/api/
+- **Admin:** http://54.165.225.184/admin/
 
-# Instalar dependencias
-pip install -r requirements.txt
-
-# Configurar base de datos en config/settings.py
-
-# Aplicar migraciones
-python manage.py migrate
-
-# Crear superusuario
-python manage.py createsuperuser
-
-# Recolectar archivos estáticos
-python manage.py collectstatic
-
-# Ejecutar servidor de desarrollo
-python manage.py runserver
+## 📦 Dependencias Principales
 ```
-
-## 📁 Estructura del Proyecto
+Django==5.0.1
+djangorestframework==3.14.0
+djangorestframework-simplejwt==5.3.1
+mysqlclient==2.2.1
+gunicorn==21.2.0
+django-cors-headers==4.3.1
 ```
-smartconnect/
-├── api/
-│   ├── migrations/
-│   ├── __init__.py
-│   ├── admin.py
-│   ├── models.py
-│   ├── serializers.py
-│   ├── views.py
-│   └── urls.py
-├── config/
-│   ├── __init__.py
-│   ├── settings.py
-│   ├── urls.py
-│   └── wsgi.py
-├── staticfiles/
-├── venv/
-├── manage.py
-├── requirements.txt
-├── .gitignore
-└── README.md
-```
-
-## 🚀 Despliegue en AWS EC2
-
-### Servicios configurados:
-- **Apache 2.4** como reverse proxy (puerto 80)
-- **Gunicorn** ejecutando Django (puerto 8000)
-- **MariaDB 10.5** como base de datos
-- **IP Elástica** para persistencia de IP pública
-
-### Logs:
-```bash
-# Logs de Gunicorn
-tail -f ~/smartconnect/gunicorn-error.log
-
-# Logs de Apache
-sudo tail -f /var/log/httpd/smartconnect_error.log
-```
-
-### Reiniciar servicios:
-```bash
-# Reiniciar Gunicorn
-pkill gunicorn
-cd ~/smartconnect && source venv/bin/activate
-gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3 --daemon
-
-# Reiniciar Apache
-sudo systemctl restart httpd
-```
-
-## 🔐 Seguridad
-
-- Autenticación JWT con tokens de 5 horas de duración
-- CORS configurado para dominios específicos
-- Validación de permisos por endpoint
-- Contraseñas hasheadas con PBKDF2
-- CSRF protection habilitado
-
-## 📊 Características Principales
-
-✅ API REST completa con CRUD para 5 modelos  
-✅ Autenticación y autorización con JWT  
-✅ Validación de datos con serializers  
-✅ Filtros y búsquedas en endpoints  
-✅ Paginación automática (20 items por página)  
-✅ Panel de administración Django  
-✅ Documentación de API  
-✅ Manejo de errores personalizado  
-✅ Logs de eventos del sistema  
-✅ Despliegue en producción con Apache + Gunicorn  
 
 ## 📄 Licencia
 
-Proyecto académico - Universidad de Chile 2024
+Este proyecto fue desarrollado con fines educativos para INACAP.
 
-## 📞 Contacto
+## 👤 Autor
 
-**Jorge Matías Castillo**  
-Email: [tu email]  
-GitHub: [@matiascastillo57](https://github.com/matiascastillo57)
+**Jorge Matías Castillo**
+- GitHub: [@matiascastillo57](https://github.com/matiascastillo57)
+- Proyecto: SmartConnect API v1.0
+
+---
+
+**Fecha de Desarrollo:** Diciembre 2025  
+**Institución:** INACAP - Ingeniería en Informática
