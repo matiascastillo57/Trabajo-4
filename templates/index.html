@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartConnect API - INACAP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 900px;
+            width: 100%;
+            padding: 40px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+        .info-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        .info-section h2 {
+            color: #333;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .info-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        .info-item strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .endpoints {
+            list-style: none;
+        }
+        .endpoints li {
+            background: white;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+        .endpoints li:hover {
+            transform: translateX(5px);
+        }
+        .method {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.85em;
+            margin-right: 12px;
+            min-width: 60px;
+            text-align: center;
+        }
+        .method.get { background: #28a745; color: white; }
+        .method.post { background: #007bff; color: white; }
+        .endpoint-url {
+            font-family: 'Courier New', monospace;
+            color: #333;
+            flex: 1;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: bold;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .btn-secondary {
+            background: #28a745;
+        }
+        .btn-secondary:hover {
+            background: #218838;
+        }
+        .credentials {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .credentials h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        .cred-item {
+            font-family: 'Courier New', monospace;
+            background: white;
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .tech-badge {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 SmartConnect API</h1>
+            <p>Sistema de Gestión de Sensores y Barreras IoT</p>
+        </div>
+        
+        <div class="info-section">
+            <h2>👨‍🎓 Información del Estudiante</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <strong>Nombre:</strong>
+                    Jorge Matías Castillo
+                </div>
+                <div class="info-item">
+                    <strong>Universidad:</strong>
+                    INACAP
+                </div>
+                <div class="info-item">
+                    <strong>Carrera:</strong>
+                    Ingeniería en Informática
+                </div>
+                <div class="info-item">
+                    <strong>Curso:</strong>
+                    Desarrollo de Aplicaciones Web
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h2>🔧 Stack Tecnológico</h2>
+            <div class="tech-stack">
+                <span class="tech-badge">Django 5.0</span>
+                <span class="tech-badge">Django REST Framework</span>
+                <span class="tech-badge">MariaDB 10.5</span>
+                <span class="tech-badge">JWT Authentication</span>
+                <span class="tech-badge">Apache 2.4</span>
+                <span class="tech-badge">Gunicorn</span>
+                <span class="tech-badge">AWS EC2</span>
+                <span class="tech-badge">Amazon Linux 2023</span>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h2>📡 Endpoints Principales</h2>
+            <ul class="endpoints">
+                <li>
+                    <span class="method get">GET</span>
+                    <span class="endpoint-url">/api/</span>
+                    <span>API Root (público)</span>
+                </li>
+                <li>
+                    <span class="method get">GET</span>
+                    <span class="endpoint-url">/api/info/</span>
+                    <span>Información del proyecto (público)</span>
+                </li>
+                <li>
+                    <span class="method post">POST</span>
+                    <span class="endpoint-url">/api/token/</span>
+                    <span>Obtener JWT tokens</span>
+                </li>
+                <li>
+                    <span class="method get">GET</span>
+                    <span class="endpoint-url">/api/departamentos/</span>
+                    <span>Listar departamentos</span>
+                </li>
+                <li>
+                    <span class="method get">GET</span>
+                    <span class="endpoint-url">/api/sensores/</span>
+                    <span>Listar sensores</span>
+                </li>
+                <li>
+                    <span class="method get">GET</span>
+                    <span class="endpoint-url">/api/barreras/</span>
+                    <span>Listar barreras</span>
+                </li>
+                <li>
+                    <span class="method get">GET</span>
+                    <span class="endpoint-url">/api/eventos/</span>
+                    <span>Listar eventos</span>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="credentials">
+            <h3>🔑 Credenciales de Prueba</h3>
+            <p><strong>Usuario Admin:</strong></p>
+            <div class="cred-item">Username: admin</div>
+            <div class="cred-item">Password: Admin2024!</div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="/api/" class="btn">Ver API Root</a>
+            <a href="/api/info/" class="btn">Info del Proyecto (JSON)</a>
+            <a href="/admin/" class="btn btn-secondary">Panel de Administración</a>
+        </div>
+        
+        <div class="footer">
+            <p>🌐 Servidor: 54.165.225.184 | Puerto: 80</p>
+            <p>📂 Repositorio: <a href="https://github.com/matiascastillo57/Trabajo-4" target="_blank">GitHub</a></p>
+        </div>
+    </div>
+</body>
+</html>

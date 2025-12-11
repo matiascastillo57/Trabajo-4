@@ -1,36 +1,52 @@
+
+
 # Python
-venv/
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
+*.py[cod]
+*$py.class
 *.so
+.Python
+*.egg-info/
+dist/
+build/
 
 # Django
 *.log
-*.pot
-*.sqlite3
+local_settings.py
 db.sqlite3
-/staticfiles/
-/media/
+db.sqlite3-journal
 
-# Environment
-.env
-.env.local
-*.pem
+# Entorno virtual
+venv/
+venv_old/
+env/
+ENV/
 
-# IDE
+# IDEs
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# OS
+# Llaves SSH (IMPORTANTE)
+*.pem
+*.key
+
+# Archivos del sistema
 .DS_Store
 Thumbs.db
 
-# Project specific
-gunicorn-access.log
-gunicorn-error.log
+# Archivos de configuración locales
+.env
+
+# Archivos estáticos recopilados
+staticfiles/
+static/
+
+# Archivos de logs
+*.log
+gunicorn-*.log
+
+# Otros
+Trabajo-4/
